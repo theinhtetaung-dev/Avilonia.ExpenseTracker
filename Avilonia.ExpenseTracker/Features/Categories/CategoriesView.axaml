@@ -1,0 +1,158 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Avilonia.ExpenseTracker.Features.Categories"
+             xmlns:conv="using:Avilonia.ExpenseTracker.Common.Converters"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+             x:Class="Avilonia.ExpenseTracker.Features.Categories.CategoriesView"
+             x:DataType="vm:CategoriesViewModel">
+
+    <UserControl.Resources>
+        <conv:CategoryColorConverter x:Key="CatColorConv"/>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="24">
+
+            <!-- Header Row -->
+            <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding L[NavCategories]}"
+                               FontSize="26"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource TextPrimaryBrush}"/>
+                    <TextBlock Text="{Binding Categories.Count, StringFormat='{}{0} categories'}"
+                               FontSize="14"
+                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                </StackPanel>
+
+                <Button Command="{Binding AddCategoryCommand}"
+                        Classes="primary"
+                        Padding="18,10"
+                        CornerRadius="8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource IconPlus}" Width="14" Height="14" Foreground="White" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding L[AddCategory]}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!-- Category Cards Grid -->
+            <ItemsControl ItemsSource="{Binding Categories}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{DynamicResource CardBackgroundBrush}"
+                                BorderBrush="{DynamicResource BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="12"
+                                Width="290"
+                                Padding="16"
+                                Margin="0,0,16,16">
+                            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*,Auto">
+                                <!-- Luxury Color Dot & Icon Badge -->
+                                <Border Grid.Row="0" Grid.Column="0"
+                                        Width="40" Height="40"
+                                        CornerRadius="10"
+                                        Background="{Binding Name, Converter={StaticResource CatColorConv}}"
+                                        Margin="0,0,12,0"
+                                        VerticalAlignment="Center">
+                                    <PathIcon Data="{StaticResource IconCategories}"
+                                              Foreground="White"
+                                              Width="16" Height="16"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+
+                                <!-- Title and Name -->
+                                <StackPanel Grid.Row="0" Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding DisplayName}"
+                                               FontSize="16"
+                                               FontWeight="SemiBold"
+                                               Foreground="{DynamicResource TextPrimaryBrush}"
+                                               TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Text="{Binding Name}"
+                                               FontSize="12"
+                                               Foreground="{DynamicResource TextSecondaryBrush}"
+                                               TextTrimming="CharacterEllipsis"/>
+                                </StackPanel>
+
+                                <!-- Usage Badge -->
+                                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                        Background="{DynamicResource SubBackgroundBrush}"
+                                        CornerRadius="6"
+                                        Padding="10,6"
+                                        Margin="0,14,0,12">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Text="{Binding $parent[UserControl].((vm:CategoriesViewModel)DataContext).L[NumberOfExpenses]}"
+                                                   FontSize="12"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding UsageCount}"
+                                                   FontWeight="SemiBold"
+                                                   FontSize="12"
+                                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Action Buttons: Edit, Delete -->
+                                <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right"
+                                            Spacing="8">
+                                    <Button Content="{Binding $parent[UserControl].((vm:CategoriesViewModel)DataContext).L[Edit]}"
+                                            Command="{Binding $parent[UserControl].((vm:CategoriesViewModel)DataContext).EditCategoryCommand}"
+                                            CommandParameter="{Binding}"
+                                            Classes="secondary"
+                                            Padding="14,6"
+                                            FontSize="12"
+                                            CornerRadius="6"/>
+                                    <Button Content="{Binding $parent[UserControl].((vm:CategoriesViewModel)DataContext).L[Delete]}"
+                                            Command="{Binding $parent[UserControl].((vm:CategoriesViewModel)DataContext).DeleteCategoryCommand}"
+                                            CommandParameter="{Binding}"
+                                            Classes="danger"
+                                            Padding="14,6"
+                                            FontSize="12"
+                                            CornerRadius="6"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Empty State -->
+            <Border Background="{DynamicResource CardBackgroundBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="48"
+                    IsVisible="{Binding !HasCategories}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16">
+                    <Border Width="64" Height="64" CornerRadius="32" Background="#EEF2FF" HorizontalAlignment="Center">
+                        <PathIcon Data="{StaticResource IconCategories}" Width="24" Height="24"
+                                  Foreground="#2563EB" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="{Binding L[NoCategoriesFound]}"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextSecondaryBrush}"
+                               HorizontalAlignment="Center"/>
+                    <Button Content="{Binding L[AddCategory]}"
+                            Command="{Binding AddCategoryCommand}"
+                            Classes="primary"
+                            Padding="20,10"
+                            CornerRadius="8"
+                            HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

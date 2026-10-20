@@ -1,0 +1,145 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Avilonia.ExpenseTracker.Features.Settings"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="700"
+             x:Class="Avilonia.ExpenseTracker.Features.Settings.SettingsView"
+             x:DataType="vm:SettingsViewModel">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="24" Margin="24" MaxWidth="800" HorizontalAlignment="Left">
+
+            <!-- Title -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{Binding L[SettingsTitle]}"
+                           FontSize="26"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource TextPrimaryBrush}"/>
+            </StackPanel>
+
+            <!-- Language Setting Card -->
+            <Border Background="{DynamicResource CardBackgroundBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="24">
+                <StackPanel Spacing="16">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{Binding L[LanguageSection]}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"/>
+                        <TextBlock Text="{Binding L[LanguageDesc]}"
+                                   FontSize="13"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="16">
+                        <!-- Myanmar Language Button -->
+                        <Button Command="{Binding SelectMyanmarCommand}"
+                                Classes.primary="{Binding IsMyanmarLanguage}"
+                                Classes.secondary="{Binding !IsMyanmarLanguage}"
+                                Padding="20,14"
+                                Width="200"
+                                CornerRadius="10">
+                            <StackPanel Spacing="4" HorizontalAlignment="Center">
+                                <TextBlock Text="မြန်မာစာ" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Myanmar (Default)" FontSize="11" Opacity="0.8" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- English Language Button -->
+                        <Button Command="{Binding SelectEnglishCommand}"
+                                Classes.primary="{Binding IsEnglishLanguage}"
+                                Classes.secondary="{Binding !IsEnglishLanguage}"
+                                Padding="20,14"
+                                Width="200"
+                                CornerRadius="10">
+                            <StackPanel Spacing="4" HorizontalAlignment="Center">
+                                <TextBlock Text="English" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"/>
+                                <TextBlock Text="English (International)" FontSize="11" Opacity="0.8" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Theme Setting Card -->
+            <Border Background="{DynamicResource CardBackgroundBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="24">
+                <StackPanel Spacing="16">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{Binding L[ThemeSection]}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"/>
+                        <TextBlock Text="{Binding L[ThemeDesc]}"
+                                   FontSize="13"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="16">
+                        <!-- Light Mode Button -->
+                        <Button Command="{Binding SelectLightModeCommand}"
+                                Classes.primary="{Binding IsLightMode}"
+                                Classes.secondary="{Binding !IsLightMode}"
+                                Padding="20,14"
+                                Width="200"
+                                CornerRadius="10">
+                            <StackPanel Spacing="4" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding L[LightMode]}" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Clean &amp; Bright" FontSize="11" Opacity="0.8" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Dark Mode Button -->
+                        <Button Command="{Binding SelectDarkModeCommand}"
+                                Classes.primary="{Binding IsDarkMode}"
+                                Classes.secondary="{Binding !IsDarkMode}"
+                                Padding="20,14"
+                                Width="200"
+                                CornerRadius="10">
+                            <StackPanel Spacing="4" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding L[DarkMode]}" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Sleek &amp; Elegant" FontSize="11" Opacity="0.8" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Application Format & Storage Info -->
+            <Border Background="{DynamicResource CardBackgroundBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="24">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="App Specs &amp; Standards"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextPrimaryBrush}"/>
+
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*" Margin="0,4,0,0">
+                        <!-- Currency -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding L[CurrencySection]}" FontWeight="SemiBold" Margin="0,0,24,12"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding L[CurrencyDesc]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,12"/>
+
+                        <!-- Date Format -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding L[DateFormatSection]}" FontWeight="SemiBold" Margin="0,0,24,12"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding L[DateFormatDesc]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,12"/>
+
+                        <!-- Storage Info -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding L[StorageSection]}" FontWeight="SemiBold" Margin="0,0,24,0"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding L[StorageDesc]}" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

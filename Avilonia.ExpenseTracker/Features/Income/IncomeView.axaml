@@ -1,0 +1,226 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Avilonia.ExpenseTracker.Features.Income"
+             xmlns:conv="using:Avilonia.ExpenseTracker.Common.Converters"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+             x:Class="Avilonia.ExpenseTracker.Features.Income.IncomeView"
+             x:DataType="vm:IncomeViewModel">
+
+    <UserControl.Resources>
+        <conv:MmkCurrencyConverter x:Key="MmkConv"/>
+        <conv:AppDateFormatConverter x:Key="DateFormatConv"/>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="24">
+
+            <!-- Header Row -->
+            <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding L[NavIncome]}"
+                               FontSize="26"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource TextPrimaryBrush}"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding FilteredIncome.Count, StringFormat='{}{0} items'}"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBlock Text="•" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding FilteredTotalAmount, Converter={StaticResource MmkConv}, ConverterParameter='Total: '}"
+                                   FontWeight="SemiBold"
+                                   Foreground="#16A34A"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Command="{Binding AddIncomeCommand}"
+                        Classes="success"
+                        Padding="18,10"
+                        CornerRadius="8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource IconPlus}" Width="14" Height="14" Foreground="White" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding L[AddIncome]}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!-- Search, Filter & Sort Controls Card -->
+            <Border Background="{DynamicResource CardBackgroundBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="16">
+                <Grid RowDefinitions="Auto" ColumnDefinitions="2*,1.2*,1.2*,1.4*,Auto">
+                    <!-- Search Input -->
+                    <TextBox Grid.Column="0"
+                             Text="{Binding SearchText, Mode=TwoWay}"
+                             PlaceholderText="{Binding L[SearchIncomePlaceholder]}"
+                             Padding="12,8"
+                             CornerRadius="8"
+                             Margin="0,0,8,0"/>
+
+                    <!-- From Date -->
+                    <DatePicker Grid.Column="1"
+                                SelectedDate="{Binding StartDateFilter, Mode=TwoWay}"
+                                DayFormat="d" MonthFormat="MM" YearFormat="yyyy"
+                                HorizontalAlignment="Stretch"
+                                CornerRadius="8"
+                                Margin="0,0,8,0"/>
+
+                    <!-- To Date -->
+                    <DatePicker Grid.Column="2"
+                                SelectedDate="{Binding EndDateFilter, Mode=TwoWay}"
+                                DayFormat="d" MonthFormat="MM" YearFormat="yyyy"
+                                HorizontalAlignment="Stretch"
+                                CornerRadius="8"
+                                Margin="0,0,8,0"/>
+
+                    <!-- Sort Order Dropdown -->
+                    <ComboBox Grid.Column="3"
+                              ItemsSource="{Binding AvailableSortOrders}"
+                              SelectedItem="{Binding SelectedSortOption, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch"
+                              CornerRadius="8"
+                              Padding="10,8"
+                              Margin="0,0,8,0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayName}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <!-- Clear Filter Button -->
+                    <Button Grid.Column="4"
+                            Content="{Binding L[ClearFilters]}"
+                            Command="{Binding ClearFiltersCommand}"
+                            Classes="secondary"
+                            Padding="14,8"
+                            CornerRadius="8"/>
+                </Grid>
+            </Border>
+
+            <!-- Income List Table -->
+            <Border Background="{DynamicResource CardBackgroundBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="16"
+                    IsVisible="{Binding HasIncome}">
+                <StackPanel Spacing="10">
+                    <!-- Table Header -->
+                    <Grid ColumnDefinitions="3*,1.5*,2*,2.2*" Margin="12,6,12,6">
+                        <TextBlock Grid.Column="0" Text="{Binding L[Title]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding L[Date]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding L[Amount]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBlock Grid.Column="3" Text="{Binding L[Actions]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <Separator Background="{DynamicResource BorderBrush}" Height="1"/>
+
+                    <!-- Items Rows -->
+                    <ItemsControl ItemsSource="{Binding FilteredIncome}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="{DynamicResource SubBackgroundBrush}"
+                                        CornerRadius="8"
+                                        Padding="12,10"
+                                        Margin="0,0,0,6">
+                                    <Grid ColumnDefinitions="3*,1.5*,2*,2.2*">
+                                        <!-- Title & Note snippet -->
+                                        <StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Title}"
+                                                       FontWeight="Medium"
+                                                       Foreground="{DynamicResource TextPrimaryBrush}"
+                                                       TextTrimming="CharacterEllipsis"/>
+                                            <TextBlock Text="{Binding Note}"
+                                                       FontSize="11"
+                                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       IsVisible="{Binding Note, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                                        </StackPanel>
+
+                                        <!-- Date (dd-MM-yyyy) -->
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding Date, Converter={StaticResource DateFormatConv}}"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                                   VerticalAlignment="Center"/>
+
+                                        <!-- Amount (MMK) -->
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding Amount, Converter={StaticResource MmkConv}, ConverterParameter='+ '}"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="#16A34A"
+                                                   VerticalAlignment="Center"/>
+
+                                        <!-- Action Buttons: Details, Edit, Delete -->
+                                        <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="6">
+                                            <Button ToolTip.Tip="{Binding $parent[UserControl].((vm:IncomeViewModel)DataContext).L[IncomeDetails]}"
+                                                    Command="{Binding $parent[UserControl].((vm:IncomeViewModel)DataContext).ViewDetailsCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Classes="secondary"
+                                                    Padding="8,6"
+                                                    CornerRadius="6">
+                                                <PathIcon Data="{StaticResource IconInfo}" Width="13" Height="13"
+                                                          Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                            </Button>
+                                            <Button ToolTip.Tip="{Binding $parent[UserControl].((vm:IncomeViewModel)DataContext).L[Edit]}"
+                                                    Command="{Binding $parent[UserControl].((vm:IncomeViewModel)DataContext).EditIncomeCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Classes="secondary"
+                                                    Padding="8,6"
+                                                    CornerRadius="6">
+                                                <PathIcon Data="{StaticResource IconEdit}" Width="13" Height="13"
+                                                          Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                            </Button>
+                                            <Button ToolTip.Tip="{Binding $parent[UserControl].((vm:IncomeViewModel)DataContext).L[Delete]}"
+                                                    Command="{Binding $parent[UserControl].((vm:IncomeViewModel)DataContext).DeleteIncomeCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Classes="danger"
+                                                    Padding="8,6"
+                                                    CornerRadius="6">
+                                                <PathIcon Data="{StaticResource IconTrash}" Width="13" Height="13"
+                                                          Foreground="White"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <!-- Empty State -->
+            <Border Background="{DynamicResource CardBackgroundBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="48"
+                    IsVisible="{Binding !HasIncome}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16">
+                    <Border Width="64" Height="64" CornerRadius="32" Background="#DCFCE7" HorizontalAlignment="Center">
+                        <PathIcon Data="{StaticResource IconIncome}" Width="24" Height="24"
+                                  Foreground="#16A34A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="{Binding L[NoIncomeFound]}"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextSecondaryBrush}"
+                               HorizontalAlignment="Center"/>
+                    <Button Command="{Binding AddIncomeCommand}"
+                            Classes="success"
+                            Padding="20,10"
+                            CornerRadius="8"
+                            HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <PathIcon Data="{StaticResource IconPlus}" Width="14" Height="14" Foreground="White" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding L[AddIncome]}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

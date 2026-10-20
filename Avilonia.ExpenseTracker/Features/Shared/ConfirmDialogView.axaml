@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Avilonia.ExpenseTracker.Features.Shared"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="250"
+             x:Class="Avilonia.ExpenseTracker.Features.Shared.ConfirmDialogView"
+             x:DataType="vm:ConfirmDialogViewModel">
+
+    <Border Background="{DynamicResource CardBackgroundBrush}"
+            BorderBrush="{DynamicResource BorderBrush}"
+            BorderThickness="1"
+            CornerRadius="16"
+            Padding="28"
+            Width="420"
+            BoxShadow="0 10 30 0 #40000000">
+        <StackPanel Spacing="18">
+            <!-- Header with Luxury Vector Alert Icon -->
+            <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                <Border Width="42" Height="42" CornerRadius="21"
+                        Background="#FEE2E2" VerticalAlignment="Center">
+                    <PathIcon Data="{StaticResource IconAlert}" Width="18" Height="18"
+                              Foreground="#DC2626" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <TextBlock Text="{Binding Title}"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap"
+                           Foreground="{DynamicResource TextPrimaryBrush}"/>
+            </StackPanel>
+
+            <!-- Message -->
+            <TextBlock Text="{Binding Message}"
+                       FontSize="14"
+                       TextWrapping="Wrap"
+                       LineHeight="22"
+                       Foreground="{DynamicResource TextSecondaryBrush}"/>
+
+            <!-- Action Buttons -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="12" Margin="0,10,0,0">
+                <Button Content="{Binding CancelText}"
+                        Command="{Binding CancelCommand}"
+                        Classes="secondary"
+                        Padding="16,8"
+                        CornerRadius="8"/>
+                <Button Content="{Binding ConfirmText}"
+                        Command="{Binding ConfirmCommand}"
+                        Classes="danger"
+                        Padding="18,8"
+                        CornerRadius="8"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>
