@@ -33,7 +33,7 @@
             <!-- Metrics Overview Grid -->
             <Grid ColumnDefinitions="*,*,*,*" Margin="0,4,0,0">
                 <!-- Total Balance -->
-                <Border Grid.Column="0" Margin="0,0,10,0"
+                <Border Grid.Column="0" Margin="0,0,6,0"
                         Background="{DynamicResource CardBackgroundBrush}"
                         BorderBrush="{DynamicResource BorderBrush}"
                         BorderThickness="1"
@@ -47,6 +47,7 @@
                         <TextBlock Text="{Binding Balance, Converter={StaticResource MmkConv}}"
                                    FontSize="20"
                                    FontWeight="Bold"
+                                   TextTrimming="CharacterEllipsis"
                                    Foreground="{Binding Balance, Converter={StaticResource PositiveColorConv}}"/>
                     </StackPanel>
                 </Border>
@@ -66,6 +67,7 @@
                         <TextBlock Text="{Binding TotalIncome, Converter={StaticResource MmkConv}, ConverterParameter='+ '}"
                                    FontSize="20"
                                    FontWeight="Bold"
+                                   TextTrimming="CharacterEllipsis"
                                    Foreground="#16A34A"/>
                     </StackPanel>
                 </Border>
@@ -85,12 +87,13 @@
                         <TextBlock Text="{Binding TotalExpense, Converter={StaticResource MmkConv}, ConverterParameter='- '}"
                                    FontSize="20"
                                    FontWeight="Bold"
+                                   TextTrimming="CharacterEllipsis"
                                    Foreground="#DC2626"/>
                     </StackPanel>
                 </Border>
 
                 <!-- Average Expense -->
-                <Border Grid.Column="3" Margin="10,0,0,0"
+                <Border Grid.Column="3" Margin="6,0,0,0"
                         Background="{DynamicResource CardBackgroundBrush}"
                         BorderBrush="{DynamicResource BorderBrush}"
                         BorderThickness="1"
@@ -104,6 +107,7 @@
                         <TextBlock Text="{Binding AverageExpense, Converter={StaticResource MmkConv}}"
                                    FontSize="20"
                                    FontWeight="Bold"
+                                   TextTrimming="CharacterEllipsis"
                                    Foreground="{DynamicResource TextPrimaryBrush}"/>
                     </StackPanel>
                 </Border>
@@ -121,7 +125,7 @@
                         <PathIcon Data="{StaticResource IconTrophy}" Width="20" Height="20"
                                   Foreground="#DC2626" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
-                    <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
+                    <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center" Margin="0,0,12,0">
                         <TextBlock Text="{Binding L[HighestExpense]}"
                                    FontSize="13"
                                    FontWeight="SemiBold"
@@ -129,11 +133,13 @@
                         <TextBlock Text="{Binding HighestExpense.Title}"
                                    FontSize="17"
                                    FontWeight="Bold"
+                                   TextTrimming="CharacterEllipsis"
                                    Foreground="{DynamicResource TextPrimaryBrush}"/>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <TextBlock Text="{Binding HighestExpense.Category, Converter={StaticResource CatDisplayConv}}"
                                        FontSize="12"
-                                       Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextTrimming="CharacterEllipsis"/>
                             <TextBlock Text="•" FontSize="10" Foreground="{DynamicResource TextSecondaryBrush}"/>
                             <TextBlock Text="{Binding HighestExpense.Date, Converter={StaticResource DateFormatConv}}"
                                        FontSize="12"
@@ -152,7 +158,7 @@
             <!-- Two Columns: Category Breakdown & Recent Spending -->
             <Grid ColumnDefinitions="1.2*,*">
                 <!-- Category Breakdown Card -->
-                <Border Grid.Column="0" Margin="0,0,12,0"
+                <Border Grid.Column="0" Margin="0,0,8,0"
                         Background="{DynamicResource CardBackgroundBrush}"
                         BorderBrush="{DynamicResource BorderBrush}"
                         BorderThickness="1"
@@ -172,9 +178,21 @@
                                             <Border Width="10" Height="10" CornerRadius="5"
                                                     Background="{Binding ColorHex}"
                                                     Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                            <TextBlock Grid.Column="1" Text="{Binding DisplayName}" FontWeight="Medium" VerticalAlignment="Center"/>
-                                            <TextBlock Grid.Column="2" Text="{Binding Amount, Converter={StaticResource MmkConv}}" FontWeight="SemiBold" Margin="0,0,12,0"/>
-                                            <TextBlock Grid.Column="3" Text="{Binding Percentage, StringFormat='{}{0}%'}" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding DisplayName}"
+                                                       FontWeight="Medium"
+                                                       VerticalAlignment="Center"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Margin="0,0,8,0"/>
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Amount, Converter={StaticResource MmkConv}}"
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,12,0"/>
+                                            <TextBlock Grid.Column="3"
+                                                       Text="{Binding Percentage, StringFormat='{}{0}%'}"
+                                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                                       VerticalAlignment="Center"/>
                                         </Grid>
                                         <ProgressBar Value="{Binding PercentageRatio}"
                                                      Minimum="0" Maximum="1"
@@ -189,7 +207,7 @@
                 </Border>
 
                 <!-- Recent Spending Card -->
-                <Border Grid.Column="1" Margin="12,0,0,0"
+                <Border Grid.Column="1" Margin="8,0,0,0"
                         Background="{DynamicResource CardBackgroundBrush}"
                         BorderBrush="{DynamicResource BorderBrush}"
                         BorderThickness="1"
@@ -214,7 +232,7 @@
                                                     Background="{Binding Category, Converter={StaticResource CatColorConv}}"
                                                     Margin="0,0,12,0"
                                                     VerticalAlignment="Center"/>
-                                            <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                                            <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center" Margin="0,0,8,0">
                                                 <TextBlock Text="{Binding Title}"
                                                            FontWeight="Medium"
                                                            Foreground="{DynamicResource TextPrimaryBrush}"

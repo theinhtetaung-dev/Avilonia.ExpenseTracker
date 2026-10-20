@@ -57,79 +57,84 @@
                     </StackPanel>
 
                     <!-- Navigation Items List with Luxury Vector Icons -->
-                    <StackPanel Grid.Row="1" Spacing="6">
-                        <!-- Dashboard -->
-                        <Button Classes="nav"
-                                Command="{Binding NavigateToDashboardCommand}">
-                            <StackPanel Orientation="Horizontal" Spacing="12">
-                                <PathIcon Data="{StaticResource IconDashboard}" Width="18" Height="18"
-                                          Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding L[NavDashboard]}"
-                                           FontSize="14"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                    <ScrollViewer Grid.Row="1"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  Margin="0,0,0,12">
+                        <StackPanel Spacing="6">
+                            <!-- Dashboard -->
+                            <Button Classes="nav"
+                                    Command="{Binding NavigateToDashboardCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <PathIcon Data="{StaticResource IconDashboard}" Width="18" Height="18"
+                                              Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding L[NavDashboard]}"
+                                               FontSize="14"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
 
-                        <!-- Expenses -->
-                        <Button Classes="nav"
-                                Command="{Binding NavigateToExpensesCommand}">
-                            <StackPanel Orientation="Horizontal" Spacing="12">
-                                <PathIcon Data="{StaticResource IconExpensesDown}" Width="18" Height="18"
-                                          Foreground="#DC2626" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding L[NavExpenses]}"
-                                           FontSize="14"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                            <!-- Expenses -->
+                            <Button Classes="nav"
+                                    Command="{Binding NavigateToExpensesCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <PathIcon Data="{StaticResource IconExpensesDown}" Width="18" Height="18"
+                                              Foreground="#DC2626" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding L[NavExpenses]}"
+                                               FontSize="14"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
 
-                        <!-- Income -->
-                        <Button Classes="nav"
-                                Command="{Binding NavigateToIncomeCommand}">
-                            <StackPanel Orientation="Horizontal" Spacing="12">
-                                <PathIcon Data="{StaticResource IconIncome}" Width="18" Height="18"
-                                          Foreground="#16A34A" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding L[NavIncome]}"
-                                           FontSize="14"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                            <!-- Income -->
+                            <Button Classes="nav"
+                                    Command="{Binding NavigateToIncomeCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <PathIcon Data="{StaticResource IconIncome}" Width="18" Height="18"
+                                              Foreground="#16A34A" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding L[NavIncome]}"
+                                               FontSize="14"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
 
-                        <!-- Categories -->
-                        <Button Classes="nav"
-                                Command="{Binding NavigateToCategoriesCommand}">
-                            <StackPanel Orientation="Horizontal" Spacing="12">
-                                <PathIcon Data="{StaticResource IconCategories}" Width="18" Height="18"
-                                          Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding L[NavCategories]}"
-                                           FontSize="14"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                            <!-- Categories -->
+                            <Button Classes="nav"
+                                    Command="{Binding NavigateToCategoriesCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <PathIcon Data="{StaticResource IconCategories}" Width="18" Height="18"
+                                              Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding L[NavCategories]}"
+                                               FontSize="14"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
 
-                        <!-- Reports -->
-                        <Button Classes="nav"
-                                Command="{Binding NavigateToReportsCommand}">
-                            <StackPanel Orientation="Horizontal" Spacing="12">
-                                <PathIcon Data="{StaticResource IconReports}" Width="18" Height="18"
-                                          Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding L[NavReports]}"
-                                           FontSize="14"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                            <!-- Reports -->
+                            <Button Classes="nav"
+                                    Command="{Binding NavigateToReportsCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <PathIcon Data="{StaticResource IconReports}" Width="18" Height="18"
+                                              Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding L[NavReports]}"
+                                               FontSize="14"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
 
-                        <!-- Settings -->
-                        <Button Classes="nav"
-                                Command="{Binding NavigateToSettingsCommand}">
-                            <StackPanel Orientation="Horizontal" Spacing="12">
-                                <PathIcon Data="{StaticResource IconSettings}" Width="18" Height="18"
-                                          Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding L[NavSettings]}"
-                                           FontSize="14"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
+                            <!-- Settings -->
+                            <Button Classes="nav"
+                                    Command="{Binding NavigateToSettingsCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <PathIcon Data="{StaticResource IconSettings}" Width="18" Height="18"
+                                              Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding L[NavSettings]}"
+                                               FontSize="14"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </ScrollViewer>
 
                     <!-- Sidebar Footer: Theme Switcher & Currency Indicator -->
                     <Border Grid.Row="2"
@@ -170,14 +175,20 @@
         </Grid>
 
         <!-- Centered Modal Overlay -->
-        <Grid IsVisible="{Binding IsModalOpen}">
+        <Grid IsVisible="{Binding IsModalOpen}" ZIndex="1000">
             <!-- Darkened background scrim -->
             <Border Background="#80000000"/>
 
-            <!-- Centered Modal Dialog Card -->
-            <ContentControl Content="{Binding ActiveModal}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"/>
+            <!-- Centered Modal Dialog Card with boundary constraints -->
+            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Padding="16">
+                <ContentControl Content="{Binding ActiveModal}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Window>

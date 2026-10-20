@@ -8,7 +8,7 @@
              x:DataType="vm:SettingsViewModel">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <StackPanel Spacing="24" Margin="24" MaxWidth="800" HorizontalAlignment="Left">
+        <StackPanel Spacing="24" Margin="24" MaxWidth="900" HorizontalAlignment="Stretch">
 
             <!-- Title -->
             <StackPanel Spacing="4">
@@ -32,17 +32,19 @@
                                    Foreground="{DynamicResource TextPrimaryBrush}"/>
                         <TextBlock Text="{Binding L[LanguageDesc]}"
                                    FontSize="13"
-                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Spacing="16">
+                    <WrapPanel Orientation="Horizontal">
                         <!-- Myanmar Language Button -->
                         <Button Command="{Binding SelectMyanmarCommand}"
                                 Classes.primary="{Binding IsMyanmarLanguage}"
                                 Classes.secondary="{Binding !IsMyanmarLanguage}"
                                 Padding="20,14"
                                 Width="200"
-                                CornerRadius="10">
+                                CornerRadius="10"
+                                Margin="0,0,16,12">
                             <StackPanel Spacing="4" HorizontalAlignment="Center">
                                 <TextBlock Text="မြန်မာစာ" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"/>
                                 <TextBlock Text="Myanmar (Default)" FontSize="11" Opacity="0.8" HorizontalAlignment="Center"/>
@@ -55,13 +57,14 @@
                                 Classes.secondary="{Binding !IsEnglishLanguage}"
                                 Padding="20,14"
                                 Width="200"
-                                CornerRadius="10">
+                                CornerRadius="10"
+                                Margin="0,0,16,12">
                             <StackPanel Spacing="4" HorizontalAlignment="Center">
                                 <TextBlock Text="English" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"/>
                                 <TextBlock Text="English (International)" FontSize="11" Opacity="0.8" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                    </StackPanel>
+                    </WrapPanel>
                 </StackPanel>
             </Border>
 
@@ -79,17 +82,19 @@
                                    Foreground="{DynamicResource TextPrimaryBrush}"/>
                         <TextBlock Text="{Binding L[ThemeDesc]}"
                                    FontSize="13"
-                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Spacing="16">
+                    <WrapPanel Orientation="Horizontal">
                         <!-- Light Mode Button -->
                         <Button Command="{Binding SelectLightModeCommand}"
                                 Classes.primary="{Binding IsLightMode}"
                                 Classes.secondary="{Binding !IsLightMode}"
                                 Padding="20,14"
                                 Width="200"
-                                CornerRadius="10">
+                                CornerRadius="10"
+                                Margin="0,0,16,12">
                             <StackPanel Spacing="4" HorizontalAlignment="Center">
                                 <TextBlock Text="{Binding L[LightMode]}" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"/>
                                 <TextBlock Text="Clean &amp; Bright" FontSize="11" Opacity="0.8" HorizontalAlignment="Center"/>
@@ -102,13 +107,14 @@
                                 Classes.secondary="{Binding !IsDarkMode}"
                                 Padding="20,14"
                                 Width="200"
-                                CornerRadius="10">
+                                CornerRadius="10"
+                                Margin="0,0,16,12">
                             <StackPanel Spacing="4" HorizontalAlignment="Center">
                                 <TextBlock Text="{Binding L[DarkMode]}" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"/>
                                 <TextBlock Text="Sleek &amp; Elegant" FontSize="11" Opacity="0.8" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                    </StackPanel>
+                    </WrapPanel>
                 </StackPanel>
             </Border>
 
@@ -127,15 +133,15 @@
                     <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*" Margin="0,4,0,0">
                         <!-- Currency -->
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding L[CurrencySection]}" FontWeight="SemiBold" Margin="0,0,24,12"/>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding L[CurrencyDesc]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,12"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding L[CurrencyDesc]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,12" TextWrapping="Wrap"/>
 
                         <!-- Date Format -->
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding L[DateFormatSection]}" FontWeight="SemiBold" Margin="0,0,24,12"/>
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding L[DateFormatDesc]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,12"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding L[DateFormatDesc]}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,12" TextWrapping="Wrap"/>
 
                         <!-- Storage Info -->
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding L[StorageSection]}" FontWeight="SemiBold" Margin="0,0,24,0"/>
-                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding L[StorageDesc]}" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding L[StorageDesc]}" Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap"/>
                     </Grid>
                 </StackPanel>
             </Border>

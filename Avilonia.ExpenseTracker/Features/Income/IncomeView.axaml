@@ -50,53 +50,56 @@
                     BorderThickness="1"
                     CornerRadius="12"
                     Padding="16">
-                <Grid RowDefinitions="Auto" ColumnDefinitions="2*,1.2*,1.2*,1.4*,Auto">
-                    <!-- Search Input -->
-                    <TextBox Grid.Column="0"
-                             Text="{Binding SearchText, Mode=TwoWay}"
-                             PlaceholderText="{Binding L[SearchIncomePlaceholder]}"
-                             Padding="12,8"
-                             CornerRadius="8"
-                             Margin="0,0,8,0"/>
+                <Grid RowDefinitions="Auto,Auto">
+                    <!-- Top Row: Search Input & Clear Filters Button -->
+                    <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,12">
+                        <TextBox Grid.Column="0"
+                                 Text="{Binding SearchText, Mode=TwoWay}"
+                                 PlaceholderText="{Binding L[SearchIncomePlaceholder]}"
+                                 Padding="12,8"
+                                 CornerRadius="8"
+                                 Margin="0,0,10,0"/>
 
-                    <!-- From Date -->
-                    <DatePicker Grid.Column="1"
-                                SelectedDate="{Binding StartDateFilter, Mode=TwoWay}"
-                                DayFormat="d" MonthFormat="MM" YearFormat="yyyy"
-                                HorizontalAlignment="Stretch"
-                                CornerRadius="8"
-                                Margin="0,0,8,0"/>
+                        <Button Grid.Column="1"
+                                Content="{Binding L[ClearFilters]}"
+                                Command="{Binding ClearFiltersCommand}"
+                                Classes="secondary"
+                                Padding="16,8"
+                                CornerRadius="8"/>
+                    </Grid>
 
-                    <!-- To Date -->
-                    <DatePicker Grid.Column="2"
-                                SelectedDate="{Binding EndDateFilter, Mode=TwoWay}"
-                                DayFormat="d" MonthFormat="MM" YearFormat="yyyy"
-                                HorizontalAlignment="Stretch"
-                                CornerRadius="8"
-                                Margin="0,0,8,0"/>
+                    <!-- Bottom Row: Dates & Sort -->
+                    <Grid Grid.Row="1" ColumnDefinitions="*,*,*">
+                        <!-- From Date -->
+                        <DatePicker Grid.Column="0"
+                                    SelectedDate="{Binding StartDateFilter, Mode=TwoWay}"
+                                    DayFormat="d" MonthFormat="MM" YearFormat="yyyy"
+                                    HorizontalAlignment="Stretch"
+                                    CornerRadius="8"
+                                    Margin="0,0,8,0"/>
 
-                    <!-- Sort Order Dropdown -->
-                    <ComboBox Grid.Column="3"
-                              ItemsSource="{Binding AvailableSortOrders}"
-                              SelectedItem="{Binding SelectedSortOption, Mode=TwoWay}"
-                              HorizontalAlignment="Stretch"
-                              CornerRadius="8"
-                              Padding="10,8"
-                              Margin="0,0,8,0">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding DisplayName}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                        <!-- To Date -->
+                        <DatePicker Grid.Column="1"
+                                    SelectedDate="{Binding EndDateFilter, Mode=TwoWay}"
+                                    DayFormat="d" MonthFormat="MM" YearFormat="yyyy"
+                                    HorizontalAlignment="Stretch"
+                                    CornerRadius="8"
+                                    Margin="0,0,8,0"/>
 
-                    <!-- Clear Filter Button -->
-                    <Button Grid.Column="4"
-                            Content="{Binding L[ClearFilters]}"
-                            Command="{Binding ClearFiltersCommand}"
-                            Classes="secondary"
-                            Padding="14,8"
-                            CornerRadius="8"/>
+                        <!-- Sort Order Dropdown -->
+                        <ComboBox Grid.Column="2"
+                                  ItemsSource="{Binding AvailableSortOrders}"
+                                  SelectedItem="{Binding SelectedSortOption, Mode=TwoWay}"
+                                  HorizontalAlignment="Stretch"
+                                  CornerRadius="8"
+                                  Padding="10,8">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding DisplayName}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
                 </Grid>
             </Border>
 
@@ -109,10 +112,10 @@
                     IsVisible="{Binding HasIncome}">
                 <StackPanel Spacing="10">
                     <!-- Table Header -->
-                    <Grid ColumnDefinitions="3*,1.5*,2*,2.2*" Margin="12,6,12,6">
-                        <TextBlock Grid.Column="0" Text="{Binding L[Title]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}"/>
-                        <TextBlock Grid.Column="1" Text="{Binding L[Date]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}"/>
-                        <TextBlock Grid.Column="2" Text="{Binding L[Amount]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <Grid ColumnDefinitions="*,130,160,120" Margin="12,6,12,6">
+                        <TextBlock Grid.Column="0" Text="{Binding L[Title]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,12,0"/>
+                        <TextBlock Grid.Column="1" Text="{Binding L[Date]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,8,0"/>
+                        <TextBlock Grid.Column="2" Text="{Binding L[Amount]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" HorizontalAlignment="Right" Margin="0,0,12,0"/>
                         <TextBlock Grid.Column="3" Text="{Binding L[Actions]}" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" HorizontalAlignment="Right"/>
                     </Grid>
 
@@ -126,9 +129,9 @@
                                         CornerRadius="8"
                                         Padding="12,10"
                                         Margin="0,0,0,6">
-                                    <Grid ColumnDefinitions="3*,1.5*,2*,2.2*">
+                                    <Grid ColumnDefinitions="*,130,160,120">
                                         <!-- Title & Note snippet -->
-                                        <StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center">
+                                        <StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center" Margin="0,0,12,0">
                                             <TextBlock Text="{Binding Title}"
                                                        FontWeight="Medium"
                                                        Foreground="{DynamicResource TextPrimaryBrush}"
@@ -144,14 +147,17 @@
                                         <TextBlock Grid.Column="1"
                                                    Text="{Binding Date, Converter={StaticResource DateFormatConv}}"
                                                    Foreground="{DynamicResource TextSecondaryBrush}"
-                                                   VerticalAlignment="Center"/>
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,8,0"/>
 
                                         <!-- Amount (MMK) -->
                                         <TextBlock Grid.Column="2"
                                                    Text="{Binding Amount, Converter={StaticResource MmkConv}, ConverterParameter='+ '}"
                                                    FontWeight="SemiBold"
                                                    Foreground="#16A34A"
-                                                   VerticalAlignment="Center"/>
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,12,0"/>
 
                                         <!-- Action Buttons: Details, Edit, Delete -->
                                         <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="6">

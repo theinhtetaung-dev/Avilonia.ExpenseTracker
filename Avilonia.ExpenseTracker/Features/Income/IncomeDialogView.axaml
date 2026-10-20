@@ -13,10 +13,11 @@
             CornerRadius="16"
             Padding="28"
             Width="480"
+            MaxHeight="620"
             BoxShadow="0 10 30 0 #40000000">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <StackPanel Spacing="16">
-                <!-- Title Header -->
+        <Grid RowDefinitions="Auto,*,Auto">
+            <!-- Header: Title Header & Error Banner -->
+            <StackPanel Grid.Row="0" Spacing="14" Margin="0,0,0,16">
                 <TextBlock Text="{Binding DialogTitle}"
                            FontSize="20"
                            FontWeight="Bold"
@@ -33,70 +34,81 @@
                                Foreground="#B91C1C"
                                TextWrapping="Wrap"/>
                 </Border>
-
-                <!-- Title Input -->
-                <StackPanel Spacing="6">
-                    <TextBlock Text="{Binding L[Title]}"
-                               FontWeight="Medium"
-                               Foreground="{DynamicResource TextSecondaryBrush}"/>
-                    <TextBox Text="{Binding Title, Mode=TwoWay}"
-                             PlaceholderText="{Binding L[EnterTitlePlaceholder]}"
-                             Padding="12,10"
-                             CornerRadius="8"/>
-                </StackPanel>
-
-                <!-- Amount Input (MMK) -->
-                <StackPanel Spacing="6">
-                    <TextBlock Text="{Binding L[Amount]}"
-                               FontWeight="Medium"
-                               Foreground="{DynamicResource TextSecondaryBrush}"/>
-                    <TextBox Text="{Binding AmountText, Mode=TwoWay}"
-                             PlaceholderText="{Binding L[EnterAmountPlaceholder]}"
-                             Padding="12,10"
-                             CornerRadius="8"/>
-                </StackPanel>
-
-                <!-- Date Picker (dd-MM-yyyy format) -->
-                <StackPanel Spacing="6">
-                    <TextBlock Text="{Binding L[Date]}"
-                               FontWeight="Medium"
-                               Foreground="{DynamicResource TextSecondaryBrush}"/>
-                    <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
-                                DayFormat="d"
-                                MonthFormat="MM"
-                                YearFormat="yyyy"
-                                HorizontalAlignment="Stretch"
-                                CornerRadius="8"/>
-                </StackPanel>
-
-                <!-- Note Input -->
-                <StackPanel Spacing="6">
-                    <TextBlock Text="{Binding L[Note]}"
-                               FontWeight="Medium"
-                               Foreground="{DynamicResource TextSecondaryBrush}"/>
-                    <TextBox Text="{Binding Note, Mode=TwoWay}"
-                             PlaceholderText="{Binding L[EnterNotePlaceholder]}"
-                             AcceptsReturn="True"
-                             Height="70"
-                             TextWrapping="Wrap"
-                             Padding="12,8"
-                             CornerRadius="8"/>
-                </StackPanel>
-
-                <!-- Action Buttons -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="12" Margin="0,10,0,0">
-                    <Button Content="{Binding L[Cancel]}"
-                            Command="{Binding CancelCommand}"
-                            Classes="secondary"
-                            Padding="18,10"
-                            CornerRadius="8"/>
-                    <Button Content="{Binding L[Save]}"
-                            Command="{Binding SaveCommand}"
-                            Classes="primary"
-                            Padding="24,10"
-                            CornerRadius="8"/>
-                </StackPanel>
             </StackPanel>
-        </ScrollViewer>
+
+            <!-- Scrollable Body: Form Inputs -->
+            <ScrollViewer Grid.Row="1"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          Margin="0,0,0,16">
+                <StackPanel Spacing="16">
+                    <!-- Title Input -->
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{Binding L[Title]}"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBox Text="{Binding Title, Mode=TwoWay}"
+                                 PlaceholderText="{Binding L[EnterTitlePlaceholder]}"
+                                 Padding="12,10"
+                                 CornerRadius="8"/>
+                    </StackPanel>
+
+                    <!-- Amount Input (MMK) -->
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{Binding L[Amount]}"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBox Text="{Binding AmountText, Mode=TwoWay}"
+                                 PlaceholderText="{Binding L[EnterAmountPlaceholder]}"
+                                 Padding="12,10"
+                                 CornerRadius="8"/>
+                    </StackPanel>
+
+                    <!-- Date Picker (dd-MM-yyyy format) -->
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{Binding L[Date]}"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                                    DayFormat="d"
+                                    MonthFormat="MM"
+                                    YearFormat="yyyy"
+                                    HorizontalAlignment="Stretch"
+                                    CornerRadius="8"/>
+                    </StackPanel>
+
+                    <!-- Note Input -->
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{Binding L[Note]}"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBox Text="{Binding Note, Mode=TwoWay}"
+                                 PlaceholderText="{Binding L[EnterNotePlaceholder]}"
+                                 AcceptsReturn="True"
+                                 Height="70"
+                                 TextWrapping="Wrap"
+                                 Padding="12,8"
+                                 CornerRadius="8"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Action Buttons Footer -->
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="12">
+                <Button Content="{Binding L[Cancel]}"
+                        Command="{Binding CancelCommand}"
+                        Classes="secondary"
+                        Padding="18,10"
+                        CornerRadius="8"/>
+                <Button Content="{Binding L[Save]}"
+                        Command="{Binding SaveCommand}"
+                        Classes="primary"
+                        Padding="24,10"
+                        CornerRadius="8"/>
+            </StackPanel>
+        </Grid>
     </Border>
 </UserControl>

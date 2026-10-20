@@ -51,10 +51,10 @@
                                 BorderBrush="{DynamicResource BorderBrush}"
                                 BorderThickness="1"
                                 CornerRadius="12"
-                                Width="290"
+                                Width="285"
                                 Padding="16"
                                 Margin="0,0,16,16">
-                            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*,Auto">
+                            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*">
                                 <!-- Luxury Color Dot & Icon Badge -->
                                 <Border Grid.Row="0" Grid.Column="0"
                                         Width="40" Height="40"
@@ -82,7 +82,7 @@
                                 </StackPanel>
 
                                 <!-- Usage Badge -->
-                                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                         Background="{DynamicResource SubBackgroundBrush}"
                                         CornerRadius="6"
                                         Padding="10,6"
@@ -102,7 +102,7 @@
                                 </Border>
 
                                 <!-- Action Buttons: Edit, Delete -->
-                                <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                             Orientation="Horizontal"
                                             HorizontalAlignment="Right"
                                             Spacing="8">

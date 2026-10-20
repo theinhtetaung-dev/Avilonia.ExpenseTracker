@@ -13,72 +13,85 @@
             CornerRadius="16"
             Padding="28"
             Width="440"
+            MaxHeight="580"
             BoxShadow="0 10 30 0 #40000000">
-        <StackPanel Spacing="18">
-            <!-- Dialog Title -->
-            <TextBlock Text="{Binding DialogTitle}"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       Foreground="{DynamicResource TextPrimaryBrush}"/>
+        <Grid RowDefinitions="Auto,*,Auto">
+            <!-- Header: Title & Error Banner -->
+            <StackPanel Grid.Row="0" Spacing="14" Margin="0,0,0,16">
+                <TextBlock Text="{Binding DialogTitle}"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource TextPrimaryBrush}"/>
 
-            <!-- Error Banner -->
-            <Border Background="#FEE2E2"
-                    BorderBrush="#F87171"
-                    BorderThickness="1"
-                    CornerRadius="8"
-                    Padding="12,8"
-                    IsVisible="{Binding HasError}">
-                <TextBlock Text="{Binding ErrorMessage}"
-                           Foreground="#B91C1C"
-                           TextWrapping="Wrap"/>
-            </Border>
-
-            <!-- Name Input -->
-            <StackPanel Spacing="6">
-                <TextBlock Text="{Binding L[CategoryName]}"
-                           FontWeight="Medium"
-                           Foreground="{DynamicResource TextSecondaryBrush}"/>
-                <TextBox Text="{Binding Name, Mode=TwoWay}"
-                         PlaceholderText="{Binding L[CategoryNamePlaceholder]}"
-                         Padding="12,10"
-                         CornerRadius="8"/>
+                <Border Background="#FEE2E2"
+                        BorderBrush="#F87171"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="12,8"
+                        IsVisible="{Binding HasError}">
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Foreground="#B91C1C"
+                               TextWrapping="Wrap"/>
+                </Border>
             </StackPanel>
 
-            <!-- Color Palette Selection -->
-            <StackPanel Spacing="8">
-                <TextBlock Text="{Binding L[CategoryColor]}"
-                           FontWeight="Medium"
-                           Foreground="{DynamicResource TextSecondaryBrush}"/>
-                <ItemsControl ItemsSource="{Binding AvailableColors}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Command="{Binding $parent[UserControl].((vm:CategoryDialogViewModel)DataContext).SelectColorCommand}"
-                                    CommandParameter="{Binding}"
-                                    Margin="4"
-                                    Width="34"
-                                    Height="34"
-                                    Padding="0"
-                                    CornerRadius="17"
-                                    Classes="secondary">
-                                <Border Background="{Binding}"
-                                        CornerRadius="15"
-                                        Width="26"
-                                        Height="26"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"/>
-                            </Button>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+            <!-- Scrollable Body: Form Inputs -->
+            <ScrollViewer Grid.Row="1"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          Margin="0,0,0,16">
+                <StackPanel Spacing="16">
+                    <!-- Name Input -->
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{Binding L[CategoryName]}"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBox Text="{Binding Name, Mode=TwoWay}"
+                                 PlaceholderText="{Binding L[CategoryNamePlaceholder]}"
+                                 Padding="12,10"
+                                 CornerRadius="8"/>
+                    </StackPanel>
 
-            <!-- Action Buttons -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="12" Margin="0,12,0,0">
+                    <!-- Color Palette Selection -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding L[CategoryColor]}"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <ItemsControl ItemsSource="{Binding AvailableColors}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding $parent[UserControl].((vm:CategoryDialogViewModel)DataContext).SelectColorCommand}"
+                                            CommandParameter="{Binding}"
+                                            Margin="4"
+                                            Width="34"
+                                            Height="34"
+                                            Padding="0"
+                                            CornerRadius="17"
+                                            Classes="secondary">
+                                        <Border Background="{Binding}"
+                                                CornerRadius="15"
+                                                Width="26"
+                                                Height="26"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"/>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Action Buttons Footer -->
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="12">
                 <Button Content="{Binding L[Cancel]}"
                         Command="{Binding CancelCommand}"
                         Classes="secondary"
@@ -90,6 +103,6 @@
                         Padding="24,10"
                         CornerRadius="8"/>
             </StackPanel>
-        </StackPanel>
+        </Grid>
     </Border>
 </UserControl>
